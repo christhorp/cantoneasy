@@ -11,7 +11,22 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		// $this->call('UserTableSeeder');
+		 $this->call('CharacterSeeder');
 	}
 
+}
+
+class CharacterSeeder extends Seeder{
+    
+    public function run()
+    {
+        DB::table('characters')->delete();
+        
+        require_once('characters_data.php');
+        
+        foreach($chars as $char){
+            Character::create(array('character' => $char['character'], 'definition' => $char['definition'], 'simple_definition' => $char['simple_definition']));
+        }
+        
+    }
 }
